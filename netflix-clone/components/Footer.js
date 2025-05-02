@@ -1,6 +1,7 @@
 export default function Footer() {
     return (
-      <footer className="bg-black text-gray-400 py-15 px-4 md:px-16 max-w-7xl mx-auto mr-20">
+      <footer className="bg-black text-gray-400 py-15 px-4 md:px-16 max-w-7xl mx-auto">
+
         <p className="text-left mb-6 hover:underline cursor-pointer">
           Questions? Contact us.
         </p>
