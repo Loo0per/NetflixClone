@@ -9,6 +9,7 @@ export default function MovieCard({ movie }) {
         width={192}
         height={288}
         className="rounded"
+        unoptimized
       />
       <p className="text-white mt-2 truncate">{movie.title}</p>
     </div>
