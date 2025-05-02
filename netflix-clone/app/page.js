@@ -7,7 +7,7 @@ import ReasonRow from '../components/ReasonRow';
 
 export default async function Home() {
   // Fetch data from the mock API route
-  const response = await fetch('http://localhost:3000/api/movies', {
+  const response = await fetch('/api/movies', {
     cache: 'no-store', // Disable caching for this request
   });
   const movies = await response.json();
