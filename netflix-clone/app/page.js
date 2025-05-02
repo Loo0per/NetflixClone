@@ -4,15 +4,13 @@ import MovieRow from '../components/MovieRow';
 import FAQ from '../components/FAQ';
 import Footer from '../components/Footer';
 import ReasonRow from '../components/ReasonRow';
+import { headers } from 'next/headers';
 
 export default async function Home() {
-  // Determine absolute URL for server-side fetch (Vercel or localhost)
-  const isServer = typeof window === 'undefined';
-  const baseUrl = isServer
-    ? process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'http://localhost:3000'
-    : '';
+  const headersList = await headers();
+  const host = headersList.get('host');
+  const protocol = host && host.startsWith('localhost') ? 'http' : 'https';
+  const baseUrl = host ? `${protocol}://${host}` : '';
 
   let movies = [];
   try {
