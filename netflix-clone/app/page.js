@@ -6,8 +6,9 @@ import Footer from '../components/Footer';
 import ReasonRow from '../components/ReasonRow';
 
 export default async function Home() {
-  // Dynamically determine the base URL for both local and production
-  const baseUrl = typeof window === 'undefined'
+  // Determine absolute URL for server-side fetch (Vercel or localhost)
+  const isServer = typeof window === 'undefined';
+  const baseUrl = isServer
     ? process.env.VERCEL_URL
       ? `https://${process.env.VERCEL_URL}`
       : 'http://localhost:3000'
