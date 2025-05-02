@@ -6,24 +6,29 @@ import Footer from '../components/Footer';
 import ReasonRow from '../components/ReasonRow';
 
 export default async function Home() {
-  // Determine the base URL for server-side fetching
-  const baseUrl = process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : 'http://localhost:3000';
+  // Dynamically determine the base URL for both local and production
+  const baseUrl = typeof window === 'undefined'
+    ? process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'http://localhost:3000'
+    : '';
 
-  // Fetch data from the mock API route
-  const response = await fetch(`${baseUrl}/api/movies`, {
-    cache: 'no-store', // Disable caching for this request
-  });
-  const movies = await response.json();
+  let movies = [];
+  try {
+    const response = await fetch(`${baseUrl}/api/movies`, { cache: 'no-store' });
+    if (!response.ok) throw new Error('Failed to fetch');
+    movies = await response.json();
+  } catch (error) {
+    movies = [];
+  }
 
   return (
     <div className="bg-black">
       <Navbar />
       <Hero />
       <div className="ml-20">
-  <MovieRow title="Trending Now" movies={movies} />
-</div>
+        <MovieRow title="Trending Now" movies={movies} />
+      </div>
       <ReasonRow title="More Reasons to Join"/>
       <FAQ />
       <Footer />
